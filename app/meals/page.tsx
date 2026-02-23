@@ -1,22 +1,30 @@
 import Link from "next/link";
-import "../globals.css"
+import classes from "../styles/Meals.module.css"
+import {GetMeals} from "@/lib/meals.js"
+import MealGrid from "../components/meals/Meals-grid" ;
 
-export default function MealsPage() {
+export default async function MealsPage() {
+    const res = await GetMeals()
+
     return(
         <>
-            <main>
-                <h1 style={{ color: 'white', textAlign: 'center' }}>
-                    Time to get started!
+            <header className={classes.header}>
+                <h1>
+                    Delicious meals, created{' '}
+                    <span className={classes.highlight}></span>
                 </h1>
+                <p>
+                    Choose your favorite recepie and cook it yourself. It is easy and fun!
+                </p>
+                <p className={classes.cta}>
+                    <Link href={"/meals/share"}>
+                        Share Your Favorite Recepie
+                    </Link>
+                </p>
+            </header>
+            <main className={classes.main}>
+                <MealGrid meals={res}/>
             </main>
         </>
-        // <div>
-        //     meals page
-        //     <div>
-        //         <Link href={"/meals"}>Home</Link>
-        //         <Link href={"/community"}>community</Link>
-        //         <Link href={"/meals/share"}>share</Link>
-        //     </div>
-        // </div>
     )
 }
