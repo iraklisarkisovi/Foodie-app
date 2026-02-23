@@ -3,6 +3,7 @@ import classes from "./Header.module.css"
 import logo from "@/assets/logo.png"
 import Image from "next/image";
 import HeaderBg from "./Header-background";
+import NavLink from "./Nav-link";
 
 export default function Header() { 
     return(
@@ -14,16 +15,7 @@ export default function Header() {
                     NextLevel food
                 </Link>
 
-                <nav className={classes.nav}>
-                    <ul className="active">
-                        <li>
-                            <Link href={"/meals"}>Browse Food</Link>
-                        </li>
-                        <li>
-                            <Link href={"/community"}>Foodies Community</Link>
-                        </li>
-                    </ul>
-                </nav>
+                <NavLink/>
             </header>
         </>
     )
