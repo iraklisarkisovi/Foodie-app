@@ -1,3 +1,15 @@
+'use client'
+
+import { useParams } from "next/navigation"
+
 export default function ShareMeal(){
-    return
+    const {share} = useParams();
+
+    return (
+        <>
+            <div>
+                <h1>{share}</h1>
+            </div>
+        </>
+    )
 }
