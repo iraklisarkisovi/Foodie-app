@@ -8,11 +8,12 @@ export interface IMeals{
     image: string,
     summary: string,
     creator: string,
-    id: number
+    id: number,
+    instructions: string,
+    creator_email: string
 }
 
 export default function MealItem({ title, slug, image, summary, creator }: IMeals) {
-    console.log(image)
   return (
     <article className={classes.meal}>
       <header>

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import classes from './styles/Page.module.css';
-import ImageSlideshow from './components/images/image-slideshow';
+import ImageSlideshow from './components/Images/image-slideshow';
 
 export default function Home() {
   return (

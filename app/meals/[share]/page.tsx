@@ -1,15 +1,37 @@
-'use client'
 
-import { useParams } from "next/navigation"
+import Image from "next/image";
+import classes from "@/app/styles/meal.module.css"
+import { getMeal } from "@/lib/meals";
+import { IMeals } from "@/app/components/meals/Meals-item";
 
-export default function ShareMeal(){
-    const {share} = useParams();
+interface IProps {
+    params: Promise<{ share: string }>;
+}
+
+
+export default async function ShareMeal({params}: IProps){
+    const slug = await params
+    const meal: IMeals = getMeal(slug.share)
+
+    meal.instructions = meal.instructions.replace(/\n/g, "</>")
 
     return (
         <>
-            <div>
-                <h1>{share}</h1>
-            </div>
+            <header className={classes.header}>
+                <div className={classes.image}>
+                    <Image alt={'meal'} src={meal.image} fill/>
+                </div>
+                <div className={classes.headerText}>
+                    <h1>{meal?.title}</h1>
+                    <p className={classes.creator}>
+                        by <a href={`mailto: ${meal.creator_email}`}>{meal.creator}</a>
+                    </p>
+                    <p>{meal.summary}</p>
+                </div>
+            </header>
+            <main>
+                <p className={classes.instructions} dangerouslySetInnerHTML={{__html: meal.instructions}}></p>
+            </main>
         </>
     )
 }
