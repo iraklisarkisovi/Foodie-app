@@ -3,6 +3,7 @@ import Image from "next/image";
 import classes from "@/app/styles/meal.module.css"
 import { getMeal } from "@/lib/meals";
 import { IMeals } from "@/app/components/meals/Meals-item";
+import { notFound } from "next/navigation";
 
 interface IProps {
     params: Promise<{ share: string }>;
@@ -12,6 +13,10 @@ interface IProps {
 export default async function ShareMeal({params}: IProps){
     const slug = await params
     const meal: IMeals = getMeal(slug.share)
+    
+    if(!meal){
+        notFound();
+    }
 
     meal.instructions = meal.instructions.replace(/\n/g, "</>")
 
