@@ -9,6 +9,15 @@ interface IProps {
     params: Promise<{ share: string }>;
 }
 
+export async function generateMetadata({params}: IProps) {
+    const slug = await params
+    const meal = getMeal(slug.share);
+
+     return {
+        title: meal.title,
+        description: meal.summary,
+    };
+}
 
 export default async function ShareMeal({params}: IProps){
     const slug = await params

@@ -1,8 +1,12 @@
 'use server'
 
 import { SaveMeal } from "@/lib/meals";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
+function IsInvalidTxt(text: string) {
+    return !text || text.trim() == '';
+}
 
 export const handleForm = async (formData: FormData) => {
 
@@ -15,7 +19,18 @@ export const handleForm = async (formData: FormData) => {
         image: formData.get('image') as File | null,
         slug: formData.get('title')?.toString() ?? '',
     };
-    console.log(meal)
+
+    if(IsInvalidTxt(meal.title) ||
+        IsInvalidTxt(meal.summary) || 
+        IsInvalidTxt(meal.instructions) ||
+        IsInvalidTxt(meal.creator) || 
+        IsInvalidTxt(meal.instructions) ||
+        IsInvalidTxt(meal.creator_email) ||
+         !meal.creator_email.includes('@') || !meal.image || meal.image.size === 0) {
+            throw new Error("Invalid input")
+         }
+
     await SaveMeal(meal);
-    redirect('/meals')
+    revalidatePath('/meals');
+    redirect('/meals');
 };
