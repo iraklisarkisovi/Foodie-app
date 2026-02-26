@@ -1,23 +1,9 @@
 
+import { handleForm } from '@/app/components/Functions/InputHandler';
 import ImagePicker from '@/app/components/meals/Image-picker';
 import classes from '@/app/styles/ShareMeals.module.css';
 
 export default function ShareMealPage() {
-
-  const handleForm = async (formData: FormData) => {
-    'use server'
-
-    const meal = {
-      name: formData.get('name')?.toString() ?? '',
-      creator_email: formData.get('email')?.toString() ?? '',
-      image: formData.get('image') as File | null,
-      title: formData.get('title')?.toString() ?? '',
-      summary: formData.get('summary')?.toString() ?? '',
-      instructions: formData.get('instructions')?.toString() ?? '',
-    };
-
-    console.log(meal);
-  };
 
   return (
     <>
